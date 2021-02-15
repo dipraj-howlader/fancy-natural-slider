@@ -67,7 +67,15 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
+  let duration = document.getElementById('duration').value || 3000;
+  if( duration <= 0){
+    duration = 3000;
+    alert("Value Error and time duration will be 3 Sec!")
+  }
+  else{
+    duration;
+  }
+
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
