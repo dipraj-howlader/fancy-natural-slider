@@ -19,13 +19,17 @@ const showImages = (images) => {
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
-  images.forEach(image => {
-    let div = document.createElement('div');
-    div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
-    gallery.appendChild(div)
-  })
+  images.forEach(image => { imageShowing(image)});
 
+    
+
+}
+function imageShowing(y) {
+  let div = document.createElement('div');
+div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
+div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${y.webformatURL}") src="${y.webformatURL}" alt="${y.tags}">`;
+gallery.appendChild(div)
+console.log("fucking");
 }
 
 const getImages = (query) => {
@@ -36,15 +40,17 @@ const getImages = (query) => {
 }
 
 let slideIndex = 0;
-const selectItem = (event, img) => {
+const selectItem = (event, img, image) => {
   let element = event.target;
   element.classList.add('added');
  
   let item = sliders.indexOf(img);
   if (item === -1) {
     sliders.push(img);
-  } else {
-    alert('Hey, Already added !')
+  }
+  else{
+    sliders.length--;
+    // this is the work place!
   }
 }
 var timer
@@ -120,7 +126,6 @@ const changeSlide = (index) => {
 document.getElementById('search').addEventListener('keydown',  function (e) {
   if(e.keyCode === 13){
     search();
-    console.log("this is ");
   }
     
 });
