@@ -15,24 +15,25 @@ const KEYs = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
 const showImages = (images) => {
+  
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
   galleryHeader.style.display = 'flex';
-  images.forEach(image => { imageShowing(image)});
-
-    
-
-}
+  images.forEach(image => { imageShowing(image)
+    })
+    toggleSpinner(false);
+  }
 function imageShowing(y) {
   let div = document.createElement('div');
 div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${y.webformatURL}") src="${y.webformatURL}" alt="${y.tags}">`;
-gallery.appendChild(div)
-console.log("fucking");
+div.innerHTML = ` <img id="toggle" class="img-fluid img-thumbnail" onclick=selectItem(event,"${y.webformatURL}") src="${y.webformatURL}" alt="${y.tags}">`;
+gallery.appendChild(div);
+
 }
 
 const getImages = (query) => {
+  toggleSpinner(true);
   fetch(`https://pixabay.com/api/?key=${KEYs}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -40,18 +41,18 @@ const getImages = (query) => {
 }
 
 let slideIndex = 0;
-const selectItem = (event, img, image) => {
+const selectItem = (event, img) => {
   let element = event.target;
   element.classList.add('added');
  
   let item = sliders.indexOf(img);
   if (item === -1) {
-    sliders.push(img);
+   sliders.push (img);
   }
   else{
     sliders.length--;
-    // this is the work place!
   }
+  
 }
 var timer
 const createSlider = () => {
@@ -141,3 +142,15 @@ function search () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+const toggleSpinner = (show) =>{
+  const spinner =  document.getElementById('loading');
+  if(show == true){
+    spinner.classList.remove('d-none');
+  spinner.classList.add('d-flex');
+  }
+  else{
+    spinner.classList.add('d-none');
+    spinner.classList.remove('d-flex')
+  }
+}
