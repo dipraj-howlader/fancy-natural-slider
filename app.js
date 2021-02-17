@@ -52,7 +52,6 @@ const selectItem = (event, img) => {
 
   }
   else{
-    sliders.length--;
     const toggle = document.getElementById('toggle');
     toggle.classList.remove('added')
     toggle.classList.add('img-fluid')
