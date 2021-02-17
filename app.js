@@ -22,13 +22,14 @@ const showImages = (images) => {
   galleryHeader.style.display = 'flex';
   images.forEach(image => { imageShowing(image)
     })
-    toggleSpinner(false);
+    
   }
 function imageShowing(y) {
   let div = document.createElement('div');
 div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
 div.innerHTML = ` <img id="toggle" class="img-fluid img-thumbnail" onclick=selectItem(event,"${y.webformatURL}") src="${y.webformatURL}" alt="${y.tags}">`;
 gallery.appendChild(div);
+toggleSpinner(false);
 
 }
 
@@ -48,8 +49,14 @@ const selectItem = (event, img) => {
   let item = sliders.indexOf(img);
   if (item === -1) {
    sliders.push (img);
+
   }
   else{
+    sliders.length--;
+    const toggle = document.getElementById('toggle');
+    toggle.classList.remove('added')
+    toggle.classList.add('img-fluid')
+    toggle.classList.add('img-thumbnail');
     sliders.length--;
   }
   
